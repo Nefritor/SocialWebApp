@@ -1,0 +1,78 @@
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\SocialAPI.dll.config
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\SocialAPI.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\SocialAPI.pdb
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\Antlr3.Runtime.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\HtmlAgilityPack.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\Microsoft.Web.Infrastructure.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\Newtonsoft.Json.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\System.Web.Helpers.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\System.Web.Mvc.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\System.Web.Optimization.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\System.Web.Razor.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\System.Web.WebPages.Deployment.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\System.Web.WebPages.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\System.Web.WebPages.Razor.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\VkNet.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\WebGrease.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\HtmlAgilityPack.pdb
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\HtmlAgilityPack.xml
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\System.Web.Helpers.xml
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\System.Web.Mvc.xml
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\System.Web.Optimization.xml
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\System.Web.Razor.xml
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\System.Web.WebPages.xml
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\System.Web.WebPages.Deployment.xml
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\System.Web.WebPages.Razor.xml
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\Newtonsoft.Json.xml
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\VkNet.pdb
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\VkNet.xml
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\Antlr3.Runtime.pdb
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\ru\System.Web.Helpers.resources.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\ru\System.Web.Mvc.resources.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\ru\System.Web.Optimization.resources.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\ru\System.Web.Razor.resources.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\ru\System.Web.WebPages.resources.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\ru\System.Web.WebPages.Deployment.resources.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\bin\ru\System.Web.WebPages.Razor.resources.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\obj\Debug\SocialAPI.csprojResolveAssemblyReference.cache
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\obj\Debug\SocialAPI.dll
+C:\Projects\Sharp\2 Cours\SocialAPI\SocialAPI\obj\Debug\SocialAPI.pdb
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\SocialAPI.dll.config
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\SocialAPI.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\SocialAPI.pdb
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\Antlr3.Runtime.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\HtmlAgilityPack.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\Newtonsoft.Json.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\System.Web.Helpers.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\System.Web.Mvc.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\System.Web.Optimization.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\System.Web.Razor.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\System.Web.WebPages.Deployment.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\System.Web.WebPages.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\System.Web.WebPages.Razor.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\VkNet.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\WebGrease.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\HtmlAgilityPack.pdb
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\HtmlAgilityPack.xml
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\System.Web.Helpers.xml
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\System.Web.Mvc.xml
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\System.Web.Optimization.xml
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\System.Web.Razor.xml
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\System.Web.WebPages.xml
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\System.Web.WebPages.Deployment.xml
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\System.Web.WebPages.Razor.xml
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\Newtonsoft.Json.xml
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\VkNet.pdb
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\VkNet.xml
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\Antlr3.Runtime.pdb
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\ru\System.Web.Helpers.resources.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\ru\System.Web.Mvc.resources.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\ru\System.Web.Optimization.resources.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\ru\System.Web.Razor.resources.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\ru\System.Web.WebPages.resources.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\ru\System.Web.WebPages.Deployment.resources.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\bin\ru\System.Web.WebPages.Razor.resources.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\obj\Debug\SocialAPI.csprojResolveAssemblyReference.cache
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\obj\Debug\SocialAPI.dll
+C:\Users\N3fritor\Documents\Visual Studio 2015\Projects\SocialAPI\SocialAPI\obj\Debug\SocialAPI.pdb

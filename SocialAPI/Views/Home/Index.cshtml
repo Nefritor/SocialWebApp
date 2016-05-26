@@ -1,0 +1,172 @@
+﻿@using SocialAPI.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    Users u = new Users(1, "06c2b7d534398d593ba1b7ae5efd5d3f85081b640df560b66dc828f9bc1dab3b1da73b6b49c0fa0bea9cd", "Шарипов Фидан");
+    Session["user"] = u;
+}
+<body>
+    <script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+    <div class="wrapper">
+        <div class="header"></div>
+        <div class="content">
+            <div style="float: right; width:300px">
+                <label>Статус:</label>
+                <br />
+                <label id="stat">Ожидание</label>
+                <br/>
+                <label id="counting_lab" style="visibility:hidden">Количество результатов:</label>
+                <label id="counting" style="visibility:hidden">0</label>
+            </div>
+            <form method="post" action="~/Home/Search">
+                <div style="width: 400px">
+                    <div style="float:left">
+                        <label>Запрос: </label><br />
+                        <label>Количество результатов поиска:</label><br />
+                        <label>Запрос по:</label>
+                    </div>
+                    <div style="float:right">
+                        <input name="q" type="text" required/><br />
+                        <input name="numb" type="number" value="100" min="1" max="1000" style="width: 60px" required/><br/>
+                        <select name="type">
+                            <option value="group">Группам</option>
+                            <option value="page">Страницам</option>
+                            <option value="event">Мероприятиям</option>
+                        </select><br />
+                        <input name="send" type="submit" value="Отправить" />
+                    </div>
+                </div>
+            </form>
+
+            <div id="canvas" style="height: 500px; width:100%;"></div>
+
+            @section scripts
+{
+                <script type="text/javascript">
+
+                    var max_latitude = -90,
+                                    min_latitude = 90,
+                                    max_longitude = -180,
+                                    min_longitude = 180,
+                                    check,
+                                    count = -1;
+
+                    $(document).ready(function () {
+                        GetMap();
+                    });
+
+                    function setIcons() {
+
+                        map = new google.maps.Map(document.getElementById("canvas"), {
+                            zoom: 16,
+                            center: new google.maps.LatLng(GeocodeInfo.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ')[1],
+                                    GeocodeInfo.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ')[0]),
+                            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+                        });
+                        refresh_map();
+
+                        for (var i in GeocodeInfo.response.GeoObjectCollection.featureMember) {
+
+                            var target = new google.maps.LatLng(GeocodeInfo.response.GeoObjectCollection.featureMember[i].GeoObject.Point.pos.split(' ')[1],
+                                    GeocodeInfo.response.GeoObjectCollection.featureMember[i].GeoObject.Point.pos.split(' ')[0]);
+
+                            geoMarker = new google.maps.Marker({
+                                position: target,
+                                map: map,
+                                title: GeocodeInfo.response.GeoObjectCollection.featureMember[i].GeoObject.metaDataProperty.GeocoderMetaData.text,
+                                animation: google.maps.Animation.DROP
+                            });
+
+                            geoMarker.info = new google.maps.InfoWindow({
+                                content: "<div><font size='3'>" + GeocodeInfo.response.GeoObjectCollection.featureMember[i].GeoObject.metaDataProperty.GeocoderMetaData.text + "</font><br /><font size='2'>Страна: " + GeocodeInfo.response.GeoObjectCollection.featureMember[i].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.CountryName + "<br />Код страны: " + GeocodeInfo.response.GeoObjectCollection.featureMember[i].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.CountryNameCode + "</font><br /><div style='float: right'><font size='1'>Кликните дважды, чтобы удалить маркер</font></div></div>",
+                                disableAutoPan: true
+                            });
+
+                            geoMarker.addListener('click', function () {
+                                this.info.open(map, this);
+                            });
+
+                            geoMarker.addListener('dblclick', function () {
+                                this.setMap(null);
+                            });
+                        }
+                    }
+
+                    function GetMap() {
+
+                        var status = document.getElementById("stat"),
+                            cou = document.getElementById("counting"),
+                            coulab = document.getElementById("counting_lab");
+
+                        google.maps.visualRefresh = true;
+
+                        var extent = new google.maps.LatLng(63.447, 96.673);
+
+                        var mapOptions = {
+                            zoom: 3,
+                            center: extent,
+                            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+                        };
+
+                        map = new google.maps.Map(document.getElementById("canvas"), mapOptions);
+
+                        $.getJSON('@Url.Action("Info", "Home")', function (data) {
+                            if (!data) {
+                                status.innerHTML = 'Установка маркеров на карту...';
+                            }
+
+                            $.getJSON('@Url.Action("GetData", "Home")', function (data) {
+
+                                $.each(data, function (i, item) {
+                                    if (max_latitude <= parseFloat(item.latitude)) {
+                                        max_latitude = parseFloat(item.latitude);
+                                    }
+                                    if (min_latitude >= parseFloat(item.latitude)) {
+                                        min_latitude = parseFloat(item.latitude);
+                                    }
+                                    if (max_longitude <= parseFloat(item.longitude)) {
+                                        max_longitude = parseFloat(item.longitude);
+                                    }
+                                    if (min_longitude >= parseFloat(item.longitude)) {
+                                        min_longitude = parseFloat(item.longitude);
+                                    }
+                                    check = item.latitude;
+                                });
+
+                                map.fitBounds(new google.maps.LatLngBounds(
+                                        new google.maps.LatLng(min_latitude, min_longitude),
+                                        new google.maps.LatLng(max_latitude, max_longitude)));
+
+                                $.each(data, function (i, item) {
+                                    var marker = new google.maps.Marker({
+                                        position: new google.maps.LatLng(parseFloat(item.latitude), parseFloat(item.longitude)),
+                                        map: map,
+                                        title: item.name
+                                    });
+
+                                    var infowindow = new google.maps.InfoWindow({
+                                        content: "<div style='width: 250px; margin-right: 20px'><font size='3'><b>" + item.name + "</b></font><br /><font size='2'>" + item.description + "</font><br /><br /><font size='1'>Количество пользователей: " + item.members_count + "</font><br /><br /><div style='text-align: center'><img src='" + item.photo_big + "' width='70%'></img></div></div>"
+                                    });
+
+                                    google.maps.event.addListener(marker, 'click', function () {
+                                        infowindow.open(map, marker);
+                                    });
+
+                                    count++;
+                                })
+                                coulab.style = 'visibility:visible';
+                                cou.style = 'visibility:visible';
+                                cou.innerHTML = count;
+                                status.innerHTML = 'Готово!';
+
+                            })
+
+                        })
+
+                    }
+                </script>
+            }
+        </div>
+    </div>
+</body>

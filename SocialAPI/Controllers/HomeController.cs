@@ -52,6 +52,7 @@ namespace SocialAPI.Controllers
 
         public RedirectResult Search()
         {
+            groups.Clear();
             numb = Request.Form["numb"];
             q = Request.Form["q"];
             type = Request.Form["type"];
@@ -68,7 +69,7 @@ namespace SocialAPI.Controllers
 
         public List<Group> GroupFill(List<int> groupIdList)
         {
-            int num = 450;
+            int num = 400;
             List<Group> groupList = new List<Group>();
             double count = groupIdList.Count / num + 1;
             for (int i = 0; i <= count; i++)
@@ -88,7 +89,7 @@ namespace SocialAPI.Controllers
                         idCount++;
                     }
                 }
-                string url = String.Format("https://api.vk.com/method/groups.getById.xml?group_ids={0}&fields=place,description,members_count", ids);
+                string url = String.Format("https://api.vk.com/method/groups.getById.xml?group_ids={0}&fields=place,description,members_count,city", ids);
                 string xmlGroup = AuthorizationController.SendGet(url);
                 GroupParse(xmlGroup, idCount);
             }
@@ -101,7 +102,7 @@ namespace SocialAPI.Controllers
             {
                 XmlDocument xmlD = new XmlDocument();
                 xmlD.LoadXml(arg);
-                if (xmlD.DocumentElement.ChildNodes[i].ChildNodes[5].Name == "place")
+                if (xmlD.DocumentElement.ChildNodes[i].ChildNodes[5].Name == "place" && int.Parse(xmlD.DocumentElement.ChildNodes[i].ChildNodes[8].InnerText) != 0)
                 {
                     string name = xmlD.DocumentElement.ChildNodes[i].ChildNodes[1].InnerText;
                     string description = xmlD.DocumentElement.ChildNodes[i].ChildNodes[6].InnerText;
@@ -109,6 +110,7 @@ namespace SocialAPI.Controllers
                     string longitude = xmlD.DocumentElement.ChildNodes[i].ChildNodes[5].ChildNodes[3].InnerText;
                     string count = xmlD.DocumentElement.ChildNodes[i].ChildNodes[7].InnerText;
                     string img = xmlD.DocumentElement.ChildNodes[i].ChildNodes[10].InnerText;
+                    string city = xmlD.DocumentElement.ChildNodes[i].ChildNodes[8].InnerText;
                     groups.Add(new Group(name, description, count, img, latitude, longitude));
                 }
             }

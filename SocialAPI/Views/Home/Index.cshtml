@@ -2,6 +2,7 @@
 @using System.Data.SqlClient;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Главная страница";
 }
 @{
     Users u = new Users(1, "06c2b7d534398d593ba1b7ae5efd5d3f85081b640df560b66dc828f9bc1dab3b1da73b6b49c0fa0bea9cd", "Шарипов Фидан");
@@ -14,14 +15,13 @@
         <div class="content">
             <div style="float: right; width:300px">
                 <label>Статус:</label>
-                <br />
                 <label id="stat">Ожидание</label>
                 <br/>
                 <label id="counting_lab" style="visibility:hidden">Количество результатов:</label>
                 <label id="counting" style="visibility:hidden">0</label>
             </div>
             <form method="post" action="~/Home/Search">
-                <div style="width: 400px">
+                <div style="width: 500px">
                     <div style="float:left">
                         <label>Запрос: </label><br />
                         <label>Количество результатов поиска:</label><br />
@@ -36,11 +36,13 @@
                             <option value="page">Страницам</option>
                             <option value="event">Мероприятиям</option>
                         </select><br />
-                        <select name="areaType">
+                        <select name="areaType" id="areaTypeId" onchange="areaTypeChanged()">
+                            <option value="0">Миру</option>
                             <option value="1">Округу</option>
                             <option value="2">Субъекту</option>
                             <option value="3">Городу</option>
-                        </select><br />
+                        </select>
+                        <select name="area" id="areaId" style="visibility:hidden"></select><br />
                         <input name="send" type="submit" value="Отправить" />
                     </div>
                 </div>
@@ -51,7 +53,6 @@
             @section scripts
 {
                 <script type="text/javascript">
-
                     var max_latitude = -90,
                                     min_latitude = 90,
                                     max_longitude = -180,
@@ -62,6 +63,14 @@
                     $(document).ready(function () {
                         GetMap();
                     });
+
+                    function areaTypeChanged() {
+                        var areaType = document.getElementById("areaTypeId"),
+                        area = document.getElementById("areaId");
+                        if (areaType.value == 0) {
+                            area.style = "visibility: hidden";
+                        } else area.style = "visibility: visible";
+                    }
 
                     function setIcons() {
 

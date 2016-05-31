@@ -9,11 +9,12 @@ using HtmlAgilityPack;
 
 namespace SocialAPI.Controllers
 {
-    
     public class HomeController : Controller
     {
-
-        static string q, type, q1, numb;
+        static string q, type, q1, numb, areaType;
+        static List<Group> groups = new List<Group>();
+        // string connString = @"Data Source=DNS\Qusijue;Initial Catalog=University;Integrated Security=True";
+        // SqlConnection cnn = new SqlConnection(connString);
 
         public ActionResult Index()
         {
@@ -38,13 +39,14 @@ namespace SocialAPI.Controllers
             HtmlNodeCollection nodeOfIds = SelectNodes(xmlGroups, "//id");
             // Получение id групп
             if (q == null) { return null; }
-            else {
-            foreach (HtmlNode g in nodeOfIds)
-                groupIdList.Add(int.Parse(g.InnerHtml));
-            // Создание коллекции групп
-            groupsList = GroupFill(groupIdList);
-            q1 = q;
-            return Json(groupsList, JsonRequestBehavior.AllowGet);
+            else
+            {
+                foreach (HtmlNode g in nodeOfIds)
+                    groupIdList.Add(int.Parse(g.InnerHtml));
+                // Создание коллекции групп
+                groupsList = GroupFill(groupIdList);
+                q1 = q;
+                return Json(groupsList, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -66,34 +68,50 @@ namespace SocialAPI.Controllers
 
         public List<Group> GroupFill(List<int> groupIdList)
         {
+            int num = 450;
             List<Group> groupList = new List<Group>();
-            foreach (int id in groupIdList)
+            double count = groupIdList.Count / num + 1;
+            for (int i = 0; i <= count; i++)
             {
-                string url = String.Format("https://api.vk.com/method/groups.getById.xml?group_id={0}&fields=place,description,members_count", id);
+                string ids = "";
+                int idCount = 0;
+                for (int j = num * i; j < num + (num * i) && j < groupIdList.Count; j++)
+                {
+                    if (j % num == 0)
+                    {
+                        ids = ids + groupIdList[j];
+                        idCount++;
+                    }
+                    else
+                    {
+                        ids = ids + "," + groupIdList[j];
+                        idCount++;
+                    }
+                }
+                string url = String.Format("https://api.vk.com/method/groups.getById.xml?group_ids={0}&fields=place,description,members_count", ids);
                 string xmlGroup = AuthorizationController.SendGet(url);
-                Object g = GroupParse(xmlGroup);
-                if (g != null)
-                    groupList.Add((Group)g);
-                // groupList.Add(GroupParse(xmlGroup));
+                GroupParse(xmlGroup, idCount);
             }
-            return groupList;
+            return groups;
         }
 
-        public Group GroupParse(string arg)
+        public void GroupParse(string arg, int idCount)
         {
-            XmlDocument xmlD = new XmlDocument();
-            xmlD.LoadXml(arg);
-            if (xmlD.DocumentElement.ChildNodes[0].ChildNodes[5].Name == "place")
+            for (int i = 0; i < idCount; i++)
             {
-                string name = xmlD.DocumentElement.ChildNodes[0].ChildNodes[1].InnerText;
-                string description = xmlD.DocumentElement.ChildNodes[0].ChildNodes[6].InnerText;
-                string latitude = xmlD.DocumentElement.ChildNodes[0].ChildNodes[5].ChildNodes[2].InnerText;
-                string longitude = xmlD.DocumentElement.ChildNodes[0].ChildNodes[5].ChildNodes[3].InnerText;
-                string count = xmlD.DocumentElement.ChildNodes[0].ChildNodes[7].InnerText;
-                string img = xmlD.DocumentElement.ChildNodes[0].ChildNodes[10].InnerText;
-                return new Group(name, description, count, img, latitude, longitude);
+                XmlDocument xmlD = new XmlDocument();
+                xmlD.LoadXml(arg);
+                if (xmlD.DocumentElement.ChildNodes[i].ChildNodes[5].Name == "place")
+                {
+                    string name = xmlD.DocumentElement.ChildNodes[i].ChildNodes[1].InnerText;
+                    string description = xmlD.DocumentElement.ChildNodes[i].ChildNodes[6].InnerText;
+                    string latitude = xmlD.DocumentElement.ChildNodes[i].ChildNodes[5].ChildNodes[2].InnerText;
+                    string longitude = xmlD.DocumentElement.ChildNodes[i].ChildNodes[5].ChildNodes[3].InnerText;
+                    string count = xmlD.DocumentElement.ChildNodes[i].ChildNodes[7].InnerText;
+                    string img = xmlD.DocumentElement.ChildNodes[i].ChildNodes[10].InnerText;
+                    groups.Add(new Group(name, description, count, img, latitude, longitude));
+                }
             }
-            else return null;
         }
     }
 }

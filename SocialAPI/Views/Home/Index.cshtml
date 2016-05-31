@@ -1,4 +1,5 @@
 ﻿@using SocialAPI.Models
+@using System.Data.SqlClient;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -24,7 +25,8 @@
                     <div style="float:left">
                         <label>Запрос: </label><br />
                         <label>Количество результатов поиска:</label><br />
-                        <label>Запрос по:</label>
+                        <label>Тип сообщества:</label><br />
+                        <label>Поиск по:</label>
                     </div>
                     <div style="float:right">
                         <input name="q" type="text" required/><br />
@@ -33,6 +35,11 @@
                             <option value="group">Группам</option>
                             <option value="page">Страницам</option>
                             <option value="event">Мероприятиям</option>
+                        </select><br />
+                        <select name="areaType">
+                            <option value="1">Округу</option>
+                            <option value="2">Субъекту</option>
+                            <option value="3">Городу</option>
                         </select><br />
                         <input name="send" type="submit" value="Отправить" />
                     </div>

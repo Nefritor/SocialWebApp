@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using SocialAPI.Models;
 using System.Xml;
 using HtmlAgilityPack;
+using System.Data.SqlClient;
 
 namespace SocialAPI.Controllers
 {
@@ -24,6 +25,37 @@ namespace SocialAPI.Controllers
             bool a = false;
             if (q1 == q) a = true;
             return Json(a, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetArea(string table)
+        {
+            List<Area> area = new List<Area>();
+            string connString = @"Data Source=Nefritor-pc\mssqlserver1;Initial Catalog=SocialAPI;Integrated Security=True";
+            SqlConnection cnn = new SqlConnection(connString);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM " + table, cnn);
+            cnn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                string district_id = null,
+                    name = null,
+                    region_id = null;
+
+                if (table == "District")
+                {
+                    district_id = reader.GetValue(0).ToString();
+                    name = reader.GetValue(1).ToString();
+                    region_id = null;
+                }
+                else if (table == "Region")
+                {
+                    district_id = null;
+                    name = reader.GetValue(1).ToString();
+                    region_id = reader.GetValue(0).ToString();
+                }
+                area.Add(new Area(district_id, region_id, name));
+            }
+            return Json(area, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetData()

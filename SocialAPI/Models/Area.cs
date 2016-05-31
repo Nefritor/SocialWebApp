@@ -2,25 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Data.SqlClient;
 
 namespace SocialAPI.Models
 {
     public class Area
     {
-        static public Dictionary<string, string> Query(string table)
+        public string district_id;
+        public string region_id;
+        public string name;
+
+        public Area(string district_id, string region_id, string name)
         {
-            Dictionary<string, string> dict = new Dictionary<string,string>();
-            string connString = @"Data Source=DNS\Qusijue;Initial Catalog=SocialAPI;Integrated Security=True";
-            SqlConnection cnn = new SqlConnection(connString);
-            SqlCommand cmd = new SqlCommand("SELECT * FROM " + table, cnn);
-            cnn.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                dict.Add(reader.GetValue(0).ToString(), reader.GetValue(1).ToString());
-            }
-            return dict;
+            this.district_id = district_id;
+            this.region_id = region_id;
+            this.name = name;
         }
     }
 }

@@ -13,8 +13,6 @@ namespace SocialAPI.Controllers
     {
         static string q, type, q1, numb, areaType;
         static List<Group> groups = new List<Group>();
-        // string connString = @"Data Source=DNS\Qusijue;Initial Catalog=University;Integrated Security=True";
-        // SqlConnection cnn = new SqlConnection(connString);
 
         public ActionResult Index()
         {

@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Этот файл используется в процессе публикации или упаковки вашего веб-проекта. Вы можете настроить поведение процесса,
+изменив этот файл MSBuild. Дополнительные сведения см. по адресу http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword />
+    <_PublishTargetUrl>ftp://socialapi.somee.com/www.socialapi.somee.com</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>05/27/2016 00:40:28</publishTime>
+    </File>
+    <File Include="bin/HtmlAgilityPack.dll">
+      <publishTime>05/27/2016 00:40:28</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>05/27/2016 00:40:29</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>05/27/2016 00:40:29</publishTime>
+    </File>
+    <File Include="bin/ru/System.Web.Helpers.resources.dll">
+      <publishTime>05/27/2016 00:40:29</publishTime>
+    </File>
+    <File Include="bin/ru/System.Web.Mvc.resources.dll">
+      <publishTime>05/27/2016 00:40:28</publishTime>
+    </File>
+    <File Include="bin/ru/System.Web.Optimization.resources.dll">
+      <publishTime>05/27/2016 00:40:28</publishTime>
+    </File>
+    <File Include="bin/ru/System.Web.Razor.resources.dll">
+      <publishTime>05/27/2016 00:40:28</publishTime>
+    </File>
+    <File Include="bin/ru/System.Web.WebPages.Deployment.resources.dll">
+      <publishTime>05/27/2016 00:40:29</publishTime>
+    </File>
+    <File Include="bin/ru/System.Web.WebPages.Razor.resources.dll">
+      <publishTime>05/27/2016 00:40:29</publishTime>
+    </File>
+    <File Include="bin/ru/System.Web.WebPages.resources.dll">
+      <publishTime>05/27/2016 00:40:29</publishTime>
+    </File>
+    <File Include="bin/SocialAPI.dll">
+      <publishTime>07/21/2016 19:55:34</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>05/27/2016 00:40:28</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>05/27/2016 00:40:28</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>05/27/2016 00:40:28</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>05/27/2016 00:40:28</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>05/27/2016 00:40:28</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>05/27/2016 00:40:29</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>05/27/2016 00:40:28</publishTime>
+    </File>
+    <File Include="bin/VkNet.dll">
+      <publishTime>05/27/2016 00:40:30</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>05/27/2016 00:40:31</publishTime>
+    </File>
+    <File Include="Content/bootstrap.css">
+      <publishTime>07/18/2016 15:22:23</publishTime>
+    </File>
+    <File Include="Content/bootstrap.min.css">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Content/reset.css">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>07/19/2016 14:52:01</publishTime>
+    </File>
+    <File Include="Content/style.css">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Controllers/AuthorizationController.cs">
+      <publishTime>07/21/2016 19:35:54</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="images/bg_top1.gif">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/bg_top2.jpg">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/bg_top_img1.jpg">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/bg_top_img2.jpg">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/button1_bg.gif">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/button_details1.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/button_details2.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/button_details3.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/checkbox.gif">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/icon1.gif">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/icon2.gif">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/icon3.gif">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/icon_1.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/icon_10.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/icon_2.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/icon_3.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/icon_4.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/icon_5.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/icon_6.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/icon_7.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/icon_8.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/icon_9.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/img/bg_top1.gif">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/img/Thumbs.db">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/line_hor1.gif">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/line_ver1.gif">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/line_ver2.gif">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/logo.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/marker_1.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/marker_2.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/marker_3.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/marker_4.png">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/menu_line.gif">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/page4_img1.jpg">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/price1.gif">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/price2.gif">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/price3.gif">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="images/Thumbs.db">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>05/27/2016 00:40:27</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.js">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.js">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Scripts/map_scripts.js">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.6.2.js">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Scripts/respond.js">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Scripts/respond.min.js">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Scripts/_references.js">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Views/Authorization/Index.cshtml">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>07/21/2016 20:15:26</publishTime>
+    </File>
+    <File Include="Views/Home/Search.cshtml">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Views/Shared/Template.cshtml">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>07/20/2016 00:38:20</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>05/27/2016 00:40:26</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>07/18/2016 14:32:30</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

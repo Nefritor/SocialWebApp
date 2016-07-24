@@ -1,17 +1,48 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Authorization</title>
-</head>
 <body>
-    <div>
+    <div id="modal" class="modal fade">
+        <div class="modal-content">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h3>Авторизация</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Авторизация успешно выполнена</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="~/Home/Index" class="btn btn-primary">Ок</a>
+                </div>
+            </div>
+        </div>
     </div>
+    @section scripts
+    {
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script>
+        $(document).ready(function () {
+            if (window.location.hash != '') {
+                var hash = window.location.hash.replace("#", "");
+                access_token = hash.split("&")[0].replace("access_token=", "");
+                expires_in = hash.split("&")[1].replace("expires_in=", "");
+                user_id = hash.split("&")[2].replace("user_id=", "");
+                $.ajax({
+                    url: '@Url.Action("Authorization", "Authorization")',
+                    type: 'GET',
+                    dataType: 'json',
+                    traditional: true,
+                    data: {
+                        token: access_token,
+                        u_id: user_id
+                    }
+                });
+            }
+        });
+
+        $('#modal').modal('show');
+        </script>
+        }
+    
 </body>
-</html>

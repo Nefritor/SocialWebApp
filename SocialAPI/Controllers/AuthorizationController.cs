@@ -12,13 +12,22 @@ namespace SocialAPI.Controllers
 {
     public class AuthorizationController : Controller
     {
+        string access_token;
+        int user_id;
+
         [HttpGet]
-        public RedirectResult Index(string code)
+        public ActionResult Index(string code)
         {
-            int client_id = 3608614;
+            /* Веб публикация
+             * int client_id = 5556732;
+            string client_secret = "Z83Mua1dRjQVkIIa7KuT";
+            */
+            /*int client_id = 3608614;
             string client_secret = "joAHyo0P6VicaXOrUXx4";
+            string urlA = "http://localhost:14314/Authorization";
+
             // Формирование ссылки
-            string redirect_uri = String.Format("https://oauth.vk.com/authorize?client_id={0}&redirect_uri={1}&display=page&v=5.52", client_id, "http://localhost:14314/Authorization");
+            string redirect_uri = String.Format("https://oauth.vk.com/authorize?client_id={0}&redirect_uri={1}&display=page&v=5.52", client_id, urlA);
             string url = String.Format("https://oauth.vk.com/access_token?client_id={0}&client_secret={1}&redirect_uri={2}&code={3}", client_id, client_secret, redirect_uri, code);
             // Словарь с accessToken'ом и userId
             string xmlCode = SendGet(url);
@@ -26,9 +35,39 @@ namespace SocialAPI.Controllers
             // Получение xml-файла с информацией о пользователе
             string xmlUser = SendGet("https://api.vk.com/method/users.get.xml?user_ids=" + codeDict["userId"]);
 
-            Users user = new Users(int.Parse(codeDict["userId"]), codeDict["accessToken"], NameParser(xmlUser));
+            Users user = new Users(int.Parse(codeDict["userId"]), codeDict["accessToken"], NameParser(xmlUser), "");
+            Session["user"] = user;*/
+            //return RedirectPermanent("~/Home/Index");
+            return View();
+        }
+
+        [HttpGet]
+        public void Authorization(string token, int u_id)
+        {
+            string url = String.Format("https://api.vk.com/method/users.get.xml?user_ids={0}&fields=photo_50", u_id);
+            string xmlUser = AuthorizationController.SendGet(url);
+            access_token = token;
+            user_id = u_id;
+            Users user = UserParse(xmlUser);
             Session["user"] = user;
+            RedirectToAction("Home", "Index");
+        }
+
+        public ActionResult LogOut()
+        {
+            Session["user"] = null;
             return RedirectPermanent("~/Home/Index");
+        }
+
+        public Users UserParse(string arg)
+        {
+            XmlDocument xmlD = new XmlDocument();
+            xmlD.LoadXml(arg);
+
+            string fname = xmlD.DocumentElement.ChildNodes[0].ChildNodes[1].InnerText;
+            string lname = xmlD.DocumentElement.ChildNodes[0].ChildNodes[2].InnerText;
+            string img = xmlD.DocumentElement.ChildNodes[0].ChildNodes[3].InnerText;
+            return new Users(user_id, access_token, fname + " " + lname, img);
         }
 
         public static string SendGet(string url)

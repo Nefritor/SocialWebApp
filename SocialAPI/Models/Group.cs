@@ -13,8 +13,9 @@ namespace SocialAPI.Models
         public string photo_big;
         public string latitude;
         public string longitude;
+        public string subjectName;
 
-        public Group(string name, string description, string members_count, string photo_big, string latitude, string longitude)
+        public Group(string name, string description, string members_count, string photo_big, string latitude, string longitude, string subjectName)
         {
             this.name = name;
             this.description = description;
@@ -22,6 +23,7 @@ namespace SocialAPI.Models
             this.photo_big = photo_big;
             this.latitude = latitude;
             this.longitude = longitude;
+            this.subjectName = subjectName;
         }
     }
 }

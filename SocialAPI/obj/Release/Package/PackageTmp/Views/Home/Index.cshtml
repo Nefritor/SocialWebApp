@@ -1,0 +1,263 @@
+﻿@using SocialAPI.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Главная страница";
+}
+@{
+    //Users u = new Users(1, "06c2b7d534398d593ba1b7ae5efd5d3f85081b640df560b66dc828f9bc1dab3b1da73b6b49c0fa0bea9cd", "Шарипов Фидан");
+    //Session["user"] = u;
+
+}
+<body>
+    <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            
+            <!-- Collection of nav links and other content for toggling -->
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Главная</a></li>
+                    <li><a href="#">Статьи</a></li>
+                    <li><a href="#">Новости</a></li>
+                    <li><a data-toggle="modal" data-target="#modal-1">Поиск</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if(Session["user"] == null)
+                    {
+                        <li><a href="https://oauth.vk.com/authorize?client_id=5556732&display=page&redirect_uri=http://socialapi.somee.com/Authorization&scope=groups&response_type=code&v=5.53">Войти</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="#">Выйти @Session["at"]</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="modal fade" id="modal-1">
+        <div class="modal-dialog">
+            <form class="form-horizontal" method="post" action="~/Home/Search">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </button>
+                        <h4 class="modal-title">Поиск</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="query" class="col-sm-3 control-label">Запрос</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="q" id="query" placeholder="Запрос" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="type" class="col-sm-3 control-label">Тип сообщества</label>
+                            <div class="col-sm-9">
+                                <select name="type" class="form-control" id="type">
+                                    <option value="group">Группа</option>
+                                    <option value="page">Страница</option>
+                                    <option value="event">Мероприятие</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="areaTypeId" class="col-sm-3 control-label">Поиск по</label>
+                            <div class="col-sm-9">
+                                <select name="areaType" class="form-control" id="areaTypeId" onchange="areaTypeChanged()">
+                                    <option value="0">Миру</option>
+                                    <option value="1">Округу</option>
+                                    <option value="2">Субъекту</option>
+                                    <option value="3">Городу</option>
+                                </select>
+                                <select name="area" class="form-control" id="areaId" style="visibility:hidden"></select>
+                                <input name="areaCity" class="form-control" id="areaCityId" type="text" style="visibility:hidden; width: 200px;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-xs-5"></div>
+                        <input name="send" class="form-control" type="submit" value="Отправить" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+
+        
+        <div id="canvas" style="min-height: 900px; height:100%; width:100%;"></div>
+        @section scripts
+        {
+            <script type="text/javascript">
+                var max_latitude = -90,
+                    min_latitude = 90,
+                    max_longitude = -180,
+                    min_longitude = 180,
+                    check,
+                    count = 0;
+
+                $(document).ready(function () {
+                    GetMap();
+                });
+
+                function areaTypeChanged() {
+                    var areaType = document.getElementById("areaTypeId"),
+                    area = document.getElementById("areaId"),
+                    areaCity = document.getElementById("areaCityId");
+
+                    if (areaType.value == 0) {
+                        area.style = "visibility: hidden";
+                        areaCity.style = "visibility: hidden";
+                    }
+                    else if (areaType.value == 1) {
+                        area.style = "visibility: visible"
+                        areaCity.style = "visibility: hidden";
+                        $.getJSON('@Url.Action("GetArea", "Home")', { table: "District" }, function (data) {
+                            for (i = area.length - 1; i >= 0; i--) {
+                                area.remove(i);
+                            }
+                            $.each(data, function (i, item) {
+                                var option = document.createElement("option");
+                                option.text = item.name;
+                                option.value = item.district_id;
+                                area.add(option);
+                            });
+                        });
+                    }
+                    else if (areaType.value == 2) {
+                        area.style = "visibility: visible"
+                        areaCity.style = "visibility: hidden";
+                        $.getJSON('@Url.Action("GetArea", "Home")', { table: "Region" }, function (data) {
+                            for (i = area.length - 1; i >= 0; i--) {
+                                area.remove(i);
+                            }
+                            $.each(data, function (i, item) {
+                                var option = document.createElement("option");
+                                option.text = item.name;
+                                option.value = item.region_id;
+                                area.add(option);
+                            });
+                        });
+                    }
+                    else if (areaType.value == 3) {
+                        area.style = "visibility: hidden"
+                        areaCity.style = "visibility: visible";
+                    }
+                }
+
+                function setIcons() {
+
+                    map = new google.maps.Map(document.getElementById("canvas"), {
+                        zoom: 16,
+                        center: new google.maps.LatLng(GeocodeInfo.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ')[1],
+                                GeocodeInfo.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ')[0]),
+                        mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+                    });
+                    refresh_map();
+
+                    for (var i in GeocodeInfo.response.GeoObjectCollection.featureMember) {
+
+                        var target = new google.maps.LatLng(GeocodeInfo.response.GeoObjectCollection.featureMember[i].GeoObject.Point.pos.split(' ')[1],
+                                GeocodeInfo.response.GeoObjectCollection.featureMember[i].GeoObject.Point.pos.split(' ')[0]);
+
+                        geoMarker = new google.maps.Marker({
+                            position: target,
+                            map: map,
+                            title: GeocodeInfo.response.GeoObjectCollection.featureMember[i].GeoObject.metaDataProperty.GeocoderMetaData.text,
+                            animation: google.maps.Animation.DROP
+                        });
+
+                        geoMarker.info = new google.maps.InfoWindow({
+                            content: "<div><font size='3'>" + GeocodeInfo.response.GeoObjectCollection.featureMember[i].GeoObject.metaDataProperty.GeocoderMetaData.text + "</font><br /><font size='2'>Страна: " + GeocodeInfo.response.GeoObjectCollection.featureMember[i].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.CountryName + "<br />Код страны: " + GeocodeInfo.response.GeoObjectCollection.featureMember[i].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.CountryNameCode + "</font><br /><div style='float: right'><font size='1'>Кликните дважды, чтобы удалить маркер</font></div></div>",
+                            disableAutoPan: true
+                        });
+
+                        geoMarker.addListener('click', function () {
+                            this.info.open(map, this);
+                        });
+
+                        geoMarker.addListener('dblclick', function () {
+                            this.setMap(null);
+                        });
+                    }
+                }
+
+                function GetMap() {
+
+                    var status = document.getElementById("stat"),
+                        cou = document.getElementById("counting"),
+                        coulab = document.getElementById("counting_lab");
+
+                    google.maps.visualRefresh = true;
+
+                    var extent = new google.maps.LatLng(63.447, 96.673);
+
+                    var mapOptions = {
+                        zoom: 3,
+                        center: extent,
+                        mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+                    };
+
+                    map = new google.maps.Map(document.getElementById("canvas"), mapOptions);
+
+                    $.getJSON('@Url.Action("Info", "Home")', function (data) {
+                        if (!data) {
+                            status.innerHTML = 'Установка маркеров на карту...';
+                        }
+
+                        $.getJSON('@Url.Action("GetData", "Home")', function (data) {
+
+                            $.each(data, function (i, item) {
+                                if (max_latitude <= parseFloat(item.latitude)) {
+                                    max_latitude = parseFloat(item.latitude);
+                                }
+                                if (min_latitude >= parseFloat(item.latitude)) {
+                                    min_latitude = parseFloat(item.latitude);
+                                }
+                                if (max_longitude <= parseFloat(item.longitude)) {
+                                    max_longitude = parseFloat(item.longitude);
+                                }
+                                if (min_longitude >= parseFloat(item.longitude)) {
+                                    min_longitude = parseFloat(item.longitude);
+                                }
+                                check = item.latitude;
+                            });
+
+                            map.fitBounds(new google.maps.LatLngBounds(
+                                    new google.maps.LatLng(min_latitude, min_longitude),
+                                    new google.maps.LatLng(max_latitude, max_longitude)));
+
+                            $.each(data, function (i, item) {
+                                var marker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(parseFloat(item.latitude), parseFloat(item.longitude)),
+                                    map: map,
+                                    title: item.name
+                                });
+
+                                var infowindow = new google.maps.InfoWindow({
+                                    content: "<div style='width: 250px; margin-right: 20px'><font size='3'><b>" + item.name + "</b></font><br /><font size='2'>" + item.description + "</font><br /><br /><font size='1'>Количество пользователей: " + item.members_count + "</font><br /><br /><div style='text-align: center'><img src='" + item.photo_big + "' width='70%'></img></div></div>"
+                                });
+
+                                google.maps.event.addListener(marker, 'click', function () {
+                                    infowindow.open(map, marker);
+                                });
+
+                                count++;
+                            })
+                            coulab.style = 'visibility:visible';
+                            cou.style = 'visibility:visible';
+                            cou.innerHTML = count;
+                            status.innerHTML = 'Готово!';
+
+                        })
+
+                    })
+
+                }
+            </script>
+        }
+</body>

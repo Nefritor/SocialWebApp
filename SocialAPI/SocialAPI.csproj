@@ -179,6 +179,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="images\Thumbs.db" />
     <Content Include="images\img\Thumbs.db" />
+    <None Include="Properties\PublishProfiles\Test.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

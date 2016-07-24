@@ -24,17 +24,15 @@
                 <div style="width: 650px">
                     <div style="float:left">
                         <label>Запрос: </label><br />
-                        <label>Количество результатов поиска:</label><br />
                         <label>Тип сообщества:</label><br />
                         <label>Поиск по:</label>
                     </div>
                     <div style="float:right; width: 400px">
                         <input name="q" type="text" required /><br />
-                        <input name="numb" type="number" value="100" min="1" max="1000" style="width: 60px" required /><br />
                         <select name="type">
-                            <option value="group">Группам</option>
-                            <option value="page">Страницам</option>
-                            <option value="event">Мероприятиям</option>
+                            <option value="group">Группа</option>
+                            <option value="page">Страница</option>
+                            <option value="event">Мероприятие</option>
                         </select><br />
                         <select name="areaType" id="areaTypeId" onchange="areaTypeChanged()">
                             <option value="0">Миру</option>
@@ -42,9 +40,9 @@
                             <option value="2">Субъекту</option>
                             <option value="3">Городу</option>
                         </select>
-                        <select name="area" id="areaId" style="visibility:hidden"></select><br />
-                        <input name="areaCity" id="areaCityId" type="text" style="visibility:hidden; width: 200px;" /><br />
-                        <input name="send" type="submit" value="Отправить" />
+                        <select name="area" id="areaId" style="visibility:hidden"></select>
+                        <input name="areaCity" id="areaCityId" type="text" style="visibility:hidden; width: 200px;" />
+                        <br /><input name="send" type="submit" value="Отправить" />
                     </div>
                 </div>
             </form>
@@ -84,6 +82,7 @@
                                 $.each(data, function (i, item) {
                                     var option = document.createElement("option");
                                     option.text = item.name;
+                                    option.value = item.district_id;
                                     area.add(option);
                                 });
                             });
@@ -98,6 +97,7 @@
                                 $.each(data, function (i, item) {
                                     var option = document.createElement("option");
                                     option.text = item.name;
+                                    option.value = item.region_id;
                                     area.add(option);
                                 });
                             });

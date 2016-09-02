@@ -172,6 +172,7 @@ namespace SocialAPI.Controllers
                 xmlD.LoadXml(arg);
                 if (xmlD.DocumentElement.ChildNodes[i].ChildNodes[5].Name == "place" && int.Parse(xmlD.DocumentElement.ChildNodes[i].ChildNodes[8].InnerText) != 0)
                 {
+                    string gid = xmlD.DocumentElement.ChildNodes[i].ChildNodes[0].InnerText;
                     string name = xmlD.DocumentElement.ChildNodes[i].ChildNodes[1].InnerText;
                     string description = xmlD.DocumentElement.ChildNodes[i].ChildNodes[6].InnerText;
                     string latitude = xmlD.DocumentElement.ChildNodes[i].ChildNodes[5].ChildNodes[2].InnerText;
@@ -183,7 +184,25 @@ namespace SocialAPI.Controllers
                     if (areaId != null) { subjectName = areaId; }
                     bool isSubject = true;
                     if (areaType == "1") { isSubject = false; }
-                    groups.Add(new Group(name, description, count, img, latitude, longitude, subjectName));
+                    groups.Add(new Group(gid, name, description, count, img, latitude, longitude, subjectName, isSubject, true));
+                }
+                else
+                {
+                    try
+                    {
+                        string gid = xmlD.DocumentElement.ChildNodes[i].ChildNodes[0].InnerText;
+                        string name = xmlD.DocumentElement.ChildNodes[i].ChildNodes[1].InnerText;
+                        string description = xmlD.DocumentElement.ChildNodes[i].ChildNodes[5].InnerText;
+                        string count = xmlD.DocumentElement.ChildNodes[i].ChildNodes[6].InnerText;
+                        string img = xmlD.DocumentElement.ChildNodes[i].ChildNodes[10].InnerText;
+                        string city = xmlD.DocumentElement.ChildNodes[i].ChildNodes[7].InnerText;
+                        string subjectName = "false";
+                        if (areaId != null) { subjectName = areaId; }
+                        bool isSubject = true;
+                        if (areaType == "1") { isSubject = false; }
+                        groups.Add(new Group(gid, name, description, count, img, "0", "0", subjectName, isSubject, false));
+                    }
+                    catch { }
                 }
             }
         }

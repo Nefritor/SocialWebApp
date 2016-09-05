@@ -6814,3 +6814,30 @@ td.visible-print {
     display: none !important;
   }
 }
+
+.lstOfGroups{
+    margin-top: 51px; 
+    float:right; 
+    overflow:auto;
+}
+
+.grpDescr{
+    height:230px; 
+    border-radius: 5px;
+    border-bottom: 1px solid black;
+    background: linear-gradient(to top, #efefef, #fff);
+}
+
+.grpDescrImg{
+    margin: 5px 0px 5px 5px; 
+    background-color:deeppink; 
+    width: 70px; 
+    height:70px; 
+    float:left
+}
+
+.grpDescrTxt{
+    margin: 5px; 
+    width:198px; 
+    float:left
+}

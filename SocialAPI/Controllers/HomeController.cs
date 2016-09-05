@@ -113,8 +113,9 @@ namespace SocialAPI.Controllers
                 groupsListA = GroupFill(groupIdListA);
             }
             q1 = q;
-            Session["flag"] = true;
-            System.IO.File.WriteAllLines(@"C:\GroupList.txt", otherGroups);
+            Session["flag"] = true;            
+            System.IO.File.WriteAllLines(@"D:\GroupList.txt", otherGroups);
+            otherGroups.Clear();
             return Json(groupsListA, JsonRequestBehavior.AllowGet);
         }
 
@@ -169,6 +170,7 @@ namespace SocialAPI.Controllers
 
         public void GroupParse(string arg, int idCount)
         {
+            int cnt = 1;
             for (int i = 0; i < idCount; i++)
             {
                 XmlDocument xmlD = new XmlDocument();
@@ -201,12 +203,12 @@ namespace SocialAPI.Controllers
                         string city = xmlD.DocumentElement.ChildNodes[i].ChildNodes[7].InnerText;
                         string subjectName = "false";
                         if (areaId != null) { subjectName = areaId; }
-                        bool isSubject = true;
+                        bool isSubject = true;                        
                         if (areaType == "1") { isSubject = false; }
                         //groups.Add(new Group(gid, name, description, count, img, "0", "0", subjectName, isSubject, false));
-                        string hr = "####################################################";
                         string nl = Environment.NewLine;
-                        otherGroups.Add(string.Format("Название: {0}{1}Описание: {2}{3}Количество участников: {4}{5}Ссылка: http://vk.com/club{6}{7}{8}", name, nl, description, nl, count, nl, gid, nl, hr));
+                        otherGroups.Add(string.Format(cnt + ")" + nl + "Название: {0}{1}Описание: {2}{3}Количество участников: {4}{5}Ссылка: http://vk.com/club{6}{7}", name, nl, description, nl, count, nl, gid, nl));
+                        cnt++;
                     }
                     catch { }
                 }

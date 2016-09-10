@@ -33,7 +33,7 @@ namespace SocialAPI.Controllers
         public JsonResult GetArea(string table)
         {
             List<Area> area = new List<Area>();
-            string connString = @"Data Source=DNS\QUSIJUE;Initial Catalog=SocialAPI;Integrated Security=True";
+            string connString = @"Data Source=NEFRITOR-PC\MSSQLSERVER1;Initial Catalog=SocialAPI;Integrated Security=True";
             SqlConnection cnn = new SqlConnection(connString);
             SqlCommand cmd = new SqlCommand("SELECT * FROM " + table, cnn);
             cnn.Open();

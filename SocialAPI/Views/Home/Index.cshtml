@@ -109,15 +109,7 @@
     <script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
 
     <div id="canvas" style="margin-top: 51px; float:left"></div>
-    <div id="listOfGroups" class="lstOfGroups">
-        <!--<div id="groupDescr" class="grpDescr">
-            <div id="groupDescrImg" class="grpDescrImg"></div>
-            <div id="groupDescrTxt" class="grpDescrTxt">
-                 div style="background-color:teal; height: 20px">Название группы</div>
-                <div style="background-color:darkcyan; height: 50px">Описание</div> 
-            </div>
-        </div-->        
-    </div>
+    <div id="listOfGroups" class="lstOfGroups"></div>
     @section scripts
     {
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -134,14 +126,14 @@
                             nameOfSubject,
                             fusionTable,
                             numbOfPoly;
-            
-            $(document).ready(function () {                
+
+            $(document).ready(function () {
                 var canvas = document.getElementById('canvas');
                 var listOfGroups = document.getElementById('listOfGroups');
                 listOfGroups.style.height = document.documentElement.clientHeight - 71 + "px";
-                listOfGroups.style.width = "300px";
+                listOfGroups.style.width = "0px";
                 canvas.style.height = document.documentElement.clientHeight - 71 + "px";
-                canvas.style.width = document.documentElement.clientWidth - 300 + "px";
+                canvas.style.width = document.documentElement.clientWidth + "px";
                 GetMap();
                 MarkerInsert();
             });
@@ -177,7 +169,6 @@
                     $.getJSON('@Url.Action("GetData", "Home")', function (data) {
 
                         if (data != '') {
-
                             nameOfSubject = data[0].subjectName;
 
                             // Определение типа гео-поиска
@@ -192,7 +183,7 @@
                                 var sql = encodeURIComponent("SELECT 'geometry' FROM " + fusionTable + " WHERE name = '" + nameOfSubject + "'");
 
                                 var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + sql);
-
+                                var queryEnd = false;
                                 query.send(function (response) {
 
                                     numbOfPoly = response.getDataTable().getNumberOfRows();
@@ -229,10 +220,21 @@
                                             map: map
                                         });
                                     }
-
+                                    queryEnd = true;
                                 });
-                                setTimeout(markerPlacing, 3500);
+                                //setTimeout(markerPlacing, 3500, data);
+
+                                var timeStop = setInterval(function () {
+                                    if (queryEnd) {
+                                        markerPlacing(data);
+                                        clearInterval(timeStop);
+                                    }
+                                }, 10);
+
                             } else {
+                                listOfGroups.style.width = "300px";
+                                canvas.style.height = document.documentElement.clientHeight - 71 + "px";
+                                canvas.style.width = document.documentElement.clientWidth - 300 + "px";
                                 $.each(data, function (i, item) {
                                     MarkerSetting(item);
                                     //Подсчет количества результатов (с геотегами)
@@ -256,7 +258,6 @@
 
             // Создание списка групп
             function listOfGr(item) {
-                var listOfGroups = document.getElementById('listOfGroups');
                 var groupDescr = document.createElement('div');
                 groupDescr.className = "grpDescr";
                 listOfGroups.appendChild(groupDescr);
@@ -323,10 +324,10 @@
                     areaCity.style = "visibility: visible";
                 }
             }
-            
+
             //Настройка маркеров
             function MarkerSetting(item) {
-                
+
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(parseFloat(item.latitude), parseFloat(item.longitude)),
                     map: map,
@@ -346,17 +347,16 @@
             }
 
             //Установка маркеров
-            function markerPlacing() {
+            function markerPlacing(data) {
+                listOfGroups.style.width = "300px";
+                canvas.style.height = document.documentElement.clientHeight - 71 + "px";
+                canvas.style.width = document.documentElement.clientWidth - 300 + "px";
                 $.each(data, function (i, item) {
-
                     subjectLayer.forEach(function (itemSubj, k, subjectLayer) {
-
                         if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(parseFloat(item.latitude), parseFloat(item.longitude)), itemSubj) == true) {
-
                             MarkerSetting(item);
                             //Подсчет количества результатов (с геотегами)
                             count++;
-
                             fitting(item);
                         }
                     })
@@ -382,7 +382,7 @@
                         new google.maps.LatLng(min_latitude, min_longitude),
                         new google.maps.LatLng(max_latitude, max_longitude)));
             }
-        
+
         </script>
 
     }

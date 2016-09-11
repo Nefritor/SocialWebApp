@@ -6822,22 +6822,27 @@ td.visible-print {
 }
 
 .grpDescr{
-    height:230px; 
-    border-radius: 5px;
-    border-bottom: 1px solid black;
-    background: linear-gradient(to top, #efefef, #fff);
+    height:230px;
+    border-bottom: solid 1px #c8c9cb;
+    padding: 2px;
+    font-family: -apple-system,BlinkMacSystemFont,Roboto,Open Sans,Helvetica Neue,sans-serif;
 }
 
-.grpDescrImg{
-    margin: 5px 0px 5px 5px; 
-    background-color:deeppink; 
+.grpDescrNI{
+    height: 73px; 
+    border-bottom: solid 1px #e4e6e9;
+}
+
+.grpDescrImg>img{
+    background-color:#507299;
     width: 70px; 
     height:70px; 
-    float:left
+    float:left;
+    border-radius:50%;
 }
 
 .grpDescrTxt{
-    margin: 5px; 
-    width:198px; 
+    margin: 2px; 
+    width: 278px;
     float:left
 }

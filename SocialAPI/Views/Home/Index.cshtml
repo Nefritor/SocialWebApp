@@ -222,7 +222,6 @@
                                     }
                                     queryEnd = true;
                                 });
-                                //setTimeout(markerPlacing, 3500, data);
 
                                 var timeStop = setInterval(function () {
                                     if (queryEnd) {
@@ -232,9 +231,6 @@
                                 }, 10);
 
                             } else {
-                                listOfGroups.style.width = "300px";
-                                canvas.style.height = document.documentElement.clientHeight - 71 + "px";
-                                canvas.style.width = document.documentElement.clientWidth - 300 + "px";
                                 $.each(data, function (i, item) {
                                     MarkerSetting(item);
                                     //Подсчет количества результатов (с геотегами)
@@ -248,11 +244,22 @@
                             cou.style = 'visibility:visible';
                             cou.innerHTML = count;
                             //status.innerHTML = 'Готово!';
+                            
                         }
                         else alert("Ошибка запроса (Нет результатов)");
+                                                
                     })
-
-                })
+                    
+                    $.getJSON('@Url.Action("SendOthGr", "Home")', function (data) {
+                        if (data != '') {
+                            listOfGroups.style.width = "300px";
+                            canvas.style.width = document.documentElement.clientWidth - 300 + "px";
+                            $.each(data, function (i, item) {
+                                listOfGr(item);
+                            });
+                        }
+                    });
+                })                
 
             }
 
@@ -261,24 +268,35 @@
                 var groupDescr = document.createElement('div');
                 groupDescr.className = "grpDescr";
                 listOfGroups.appendChild(groupDescr);
+                var groupDescrNI = document.createElement('div');
+                groupDescrNI.className = "grpDescrNI";
                 var groupDescrImg = document.createElement('div');
+                groupDescrImg.className = "grpDescrImg";
                 var groupImg = document.createElement('img');
                 groupImg.src = item.photo_big;
                 groupImg.width = "70";
                 groupDescrImg.appendChild(groupImg);
-                var groupDescrTxt = document.createElement('div');
-                groupDescrImg.className = "grpDescrImg";
-                groupDescrTxt.className = "grpDescrTxt";
-                groupDescr.appendChild(groupDescrImg);
-                groupDescr.appendChild(groupDescrTxt);
+                groupDescrNI.appendChild(groupDescrImg);
                 var grpName = document.createElement('div');
-                var grpDesc = document.createElement('div');
-                grpName.innerHTML = "<font size='3'><b>" + item.name + "</b></font>";
-                grpName.style = 'border-bottom: 1px solid black; height: 25px; overflow: hidden; text-overflow: ellipsis';
-                grpDesc.innerHTML = "<font size='1'>" + item.description + "</font>";
-                grpDesc.style = 'line-height: 1; height: 195px; overflow: hidden; text-overflow: ellipsis';
-                groupDescrTxt.appendChild(grpName);
+                grpName.style = 'height: 70px; overflow: hidden; text-overflow: ellipsis; padding-left: 2px; color:#507299; width: 209px';
+                grpName.innerHTML = "<div style='height:20px; overflow: hidden; text-overflow: ellipsis'><font size='3'><b>" + item.name + "</b></font><div>";
+                var aButt = document.createElement('a');
+                aButt.href = item.latitude;
+                aButt.target = "_blank";
+                var grpButt = document.createElement('button');
+                grpButt.style = 'background-color: rgb(80, 114, 153); border: medium none; padding: 3px; color: rgb(255, 255, 255); width: 207px; margin-top: 6px';
+                grpButt.innerHTML = "Перейти к группе в ВКонтакте";
+                aButt.appendChild(grpButt);
+                grpName.appendChild(aButt);
+                groupDescrNI.appendChild(grpName);
+                groupDescr.appendChild(groupDescrNI);
+                var groupDescrTxt = document.createElement('div');
+                groupDescrTxt.className = "grpDescrTxt";
+                var grpDesc = document.createElement('div');                
+                grpDesc.style = 'line-height: 1; height: 150px; overflow: hidden; text-overflow: ellipsis';
+                grpDesc.innerHTML = "<font size='1'>" + item.description + "</font>";                
                 groupDescrTxt.appendChild(grpDesc);
+                groupDescr.appendChild(groupDescrTxt);
             }
 
             //Изменение типа гео-поиска
@@ -343,14 +361,12 @@
                     infowindow.open(map, marker);
                 });
 
-                listOfGr(item);
+                //listOfGr(item);
+
             }
 
             //Установка маркеров
             function markerPlacing(data) {
-                listOfGroups.style.width = "300px";
-                canvas.style.height = document.documentElement.clientHeight - 71 + "px";
-                canvas.style.width = document.documentElement.clientWidth - 300 + "px";
                 $.each(data, function (i, item) {
                     subjectLayer.forEach(function (itemSubj, k, subjectLayer) {
                         if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(parseFloat(item.latitude), parseFloat(item.longitude)), itemSubj) == true) {

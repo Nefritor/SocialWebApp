@@ -14,6 +14,7 @@ namespace SocialAPI.Controllers
     {
         static string q, type, q1, areaType, areaId, areaCity;
         static List<Group> groups = new List<Group>();
+        static List<Group> othGroups = new List<Group>();
         static List<string> otherGroups = new List<string>();
         static List<string> cities = new List<string>();
 
@@ -60,6 +61,11 @@ namespace SocialAPI.Controllers
             }
             cnn.Close();
             return Json(area, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SendOthGr()
+        {
+            return Json(othGroups, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetData()
@@ -115,7 +121,6 @@ namespace SocialAPI.Controllers
             q1 = q;
             Session["flag"] = true;            
             System.IO.File.WriteAllLines(@"D:\GroupList.txt", otherGroups);
-            otherGroups.Clear();
             return Json(groupsListA, JsonRequestBehavior.AllowGet);
         }
 
@@ -123,6 +128,8 @@ namespace SocialAPI.Controllers
         {
             groups.Clear();
             cities.Clear();
+            otherGroups.Clear();
+            othGroups.Clear();
             q = Request.Form["q"];
             type = Request.Form["type"];
             areaType = Request.Form["areaType"];
@@ -201,6 +208,8 @@ namespace SocialAPI.Controllers
                         string count = xmlD.DocumentElement.ChildNodes[i].ChildNodes[6].InnerText;
                         string img = xmlD.DocumentElement.ChildNodes[i].ChildNodes[10].InnerText;
                         string city = xmlD.DocumentElement.ChildNodes[i].ChildNodes[7].InnerText;
+                        string latitude = "http://vk.com/club" + gid;
+                        string longitude = null;
                         string subjectName = "false";
                         if (areaId != null) { subjectName = areaId; }
                         bool isSubject = true;                        
@@ -208,6 +217,7 @@ namespace SocialAPI.Controllers
                         //groups.Add(new Group(gid, name, description, count, img, "0", "0", subjectName, isSubject, false));
                         string nl = Environment.NewLine;
                         otherGroups.Add(string.Format(cnt + ")" + nl + "Название: {0}{1}Описание: {2}{3}Количество участников: {4}{5}Ссылка: http://vk.com/club{6}{7}", name, nl, description, nl, count, nl, gid, nl));
+                        othGroups.Add(new Group(gid, name, description, count, img, latitude, longitude, subjectName, isSubject, true));
                         cnt++;
                     }
                     catch { }

@@ -126,9 +126,11 @@
     </div>
 
     <script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
-
     <div id="canvas" style="margin-top: 51px; float:left"></div>
     <div id="listOfGroups" class="lstOfGroups"></div>
+    <button id="listVis" class="listVB" onclick="listButt()" style="visibility:hidden">></button>
+    <a target = "_blank" href="http://piv.pivpiv.dk"><button style="position:fixed; left:0px; bottom:0px; height:2px; width:2px; background-color:transparent; border:0px"></button></a>
+
     
     @section scripts
     {
@@ -145,7 +147,11 @@
                             subjectLayer = [],
                             nameOfSubject,
                             fusionTable,
-                            numbOfPoly;
+                            numbOfPoly,
+                            listIsVis = true,
+                            listVB = document.getElementById('listVis'),
+                            bounceEaseOut = makeEaseOut(circ);
+                            grpDescrip = document.getElementsByClassName('grpDescr');
 
             $(document).ready(function () {
                 var canvas = document.getElementById('canvas');
@@ -157,6 +163,68 @@
                 GetMap();
                 MarkerInsert();
             });
+
+            // Движок анимаций
+            function animate(options) {
+
+                var start = performance.now();
+
+                requestAnimationFrame(function animate(time) {
+                    // timeFraction от 0 до 1
+                    var timeFraction = (time - start) / options.duration;
+                    if (timeFraction > 1) timeFraction = 1;
+
+                    // текущее состояние анимации
+                    var progress = options.timing(timeFraction)
+
+                    options.draw(progress);
+
+                    if (timeFraction < 1) {
+                        requestAnimationFrame(animate);
+                    }
+
+                });
+            }            
+
+            // Тайминг анимаций
+            function makeEaseOut(timing) {
+                return function (timeFraction) {
+                    return 1 - timing(1 - timeFraction);
+                }
+            }
+
+            // Функция движения анимаций
+            function circ(timeFraction) {
+                return 1 - Math.pow(timeFraction, 3);
+            }
+            
+            // Активация анимации выхода/входа листа
+            function listButt() {                
+                animate({
+                    duration: 1000,
+                    timing: bounceEaseOut,
+                    draw: function (progress) {
+                        if (listIsVis) {
+                            listVB.style.right = 305 - progress * 305 + 'px';
+                            listOfGroups.style.width = 310 - progress * 310 + 'px';
+                        } else {
+                            listVB.style.right = 5 + progress * 305 + 'px';
+                            listOfGroups.style.width = progress * 310 + 'px';
+                        }
+                    }
+                });
+                listIsVis = !listIsVis;
+                setTimeout(setLVBIcon, 1000);
+            }
+
+            // Задержка замены подписи кнопки вывода/ввода листа
+            function setLVBIcon() {
+                if (listIsVis) {
+                    listVB.innerHTML = '>';
+                } else {
+                    listVB.innerHTML = '<';
+                }
+            }
 
             //1) Настройка Google карт
             function GetMap() {
@@ -274,8 +342,9 @@
                     
                     $.getJSON('@Url.Action("SendOthGr", "Home")', function (data) {
                         if (data != '') {
-                            listOfGroups.style.width = "300px";
-                            canvas.style.width = document.documentElement.clientWidth - 300 + "px";
+                            listOfGroups.style.width = "310px";
+                            listVB.style = 'visibility:visible'
+                            //canvas.style.width = document.documentElement.clientWidth - 300 + "px";
                             $.each(data, function (i, item) {
                                 listOfGr(item);
                             });
@@ -307,10 +376,14 @@
                 aButt.href = item.latitude;
                 aButt.target = "_blank";
                 var grpButt = document.createElement('button');
-                grpButt.style = 'background-color: rgb(80, 114, 153); border: medium none; padding: 3px; color: rgb(255, 255, 255); width: 207px; margin-top: 6px';
+                grpButt.style = 'background-color: rgb(80, 114, 153); border: medium none; padding: 3px; color: rgb(255, 255, 255); width: 207px; margin-top: 6px; border-radius: 2px;';
                 grpButt.innerHTML = "Перейти к группе в ВКонтакте";
                 aButt.appendChild(grpButt);
+                var grpMemCount = document.createElement('div');
                 grpName.appendChild(aButt);
+                grpMemCount.style = 'height: 13px; float:right';
+                grpMemCount.innerHTML = '<font size="1">Количество пользователей: ' + item.members_count + '</font>';
+                grpName.appendChild(grpMemCount);
                 groupDescrNI.appendChild(grpName);
                 groupDescr.appendChild(groupDescrNI);
                 var groupDescrTxt = document.createElement('div');
